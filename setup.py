@@ -8,7 +8,7 @@ setup(
     url='http://github.com/timbu/nameko-async-task',
     packages=find_packages(exclude=['test', 'test.*']),
     install_requires=[
-        "nameko>=2.6.0",
+        "nameko==3.0.0-rc5",  # TODO: require nameko 3 only when released
     ],
     extras_require={
         'dev': [
