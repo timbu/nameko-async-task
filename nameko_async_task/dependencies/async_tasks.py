@@ -63,14 +63,9 @@ class AsyncTask(Publisher):
         return super().bind(container, attr_name)
 
     def get_dependency(self, worker_context):
-        # TODO - remove when nameko Publisher has extra_headers fixed.
-        def publish(msg, **kwargs):
-            extra_headers = self.get_message_headers(worker_context)
-            self.publisher.publish(msg, extra_headers=extra_headers, **kwargs)
+        return AsyncTaskWrapper(self.publisher.publish, self.service_name)
 
-        return AsyncTaskWrapper(publish, self.service_name)
-
-    def task(self, wrapped=None):
+    def task(self, wrapped=None, **consume_kwargs):
         """ Decorator to define a schedulable task method
         """
         if wrapped is None:
@@ -84,4 +79,5 @@ class AsyncTask(Publisher):
                 routing_key=routing_key,
                 name=routing_key
             ),
+            **consume_kwargs
         )(wrapped)
