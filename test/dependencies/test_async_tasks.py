@@ -26,7 +26,6 @@ class TaskTestService:
         return bar * 2
 
 
-
 class TestAsyncTask:
 
     @pytest.fixture
