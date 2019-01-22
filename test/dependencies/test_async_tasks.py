@@ -11,8 +11,8 @@ from nameko_async_task.dependencies.async_tasks import AsyncTask
 exchange_task_test = Exchange(name="task_test")
 
 
-class FooService:
-    name = "foo"
+class TaskTestService:
+    name = "task_test"
 
     async_task = AsyncTask(exchange=exchange_task_test)
 
@@ -26,11 +26,12 @@ class FooService:
         return bar * 2
 
 
+
 class TestAsyncTask:
 
     @pytest.fixture
     def container(self, container_factory):
-        container = container_factory(FooService)
+        container = container_factory(TaskTestService)
         container.start()
         return container
 
